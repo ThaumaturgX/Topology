@@ -1,5 +1,5 @@
 #include <iostream>
-#include "Graph.h"
+#include "GraphFactory.h"
 
 using namespace std;
 
@@ -13,12 +13,8 @@ void print_matrix(const Matrix &matrix) {
 }
 
 int main() {
-	Graph g(3);
+	GraphFactory gf;
+	Graph g = gf.c(9, { 1, 3, 4 });
 
-	g.add_edge(0, 2);
-	g.add_edge(0, 1);
-	g.add_edge(1, 2);
-
-	auto mat = g.get_adjecency_matrix();
-	print_matrix(mat);
+	print_matrix(g.get_adjecency_matrix());
 }
