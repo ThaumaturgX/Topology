@@ -14,8 +14,8 @@ public:
 	Graph() = delete;
 
 	/* initializes adjecency matrix @param n - number of nodes */
-	Graph(size_t n) :
-		m_adj(n, std::vector<bool>(n, false)),
+	Graph(size_t n, bool fill_value = false) :
+		m_adj(n, std::vector<bool>(n, fill_value)),
 		m_node_count(n) 
 	{}
 
@@ -38,6 +38,12 @@ public:
 
 	/* returns the adjecency matrix representation of the graph */
 	Matrix get_adjecency_matrix() const;
+
+	/* return root product of 2 graphs */
+	Graph root_product(const Graph& g) const;
+
+	/* number of vertices in a Graph*/
+	size_t node_count() const { return m_node_count; }
 
 private:
 	Matrix m_adj;		// adjecency matrix
