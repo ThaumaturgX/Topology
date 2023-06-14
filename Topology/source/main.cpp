@@ -3,7 +3,8 @@
 
 using namespace std;
 
-void print_matrix(const Matrix &matrix) {
+template<typename T>
+void print_matrix(const T &matrix) {
 	for (const auto& v : matrix) {
 		for (const auto& val : v) {
 			cout << val << " ";
@@ -14,7 +15,9 @@ void print_matrix(const Matrix &matrix) {
 
 int main() {
 	GraphFactory gf;
-	Graph g = gf.c(9, { 1, 3, 4 });
-
-	print_matrix(g.get_adjecency_matrix());
+	Graph g1(3, true);
+	Graph g2 = gf.c(7, { 1, 2 });
+	print_matrix(g2.get_adjacency_matrix());
+	cout << endl;
+	print_matrix(g2.route());
 }
