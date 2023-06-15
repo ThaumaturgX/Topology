@@ -15,9 +15,8 @@ void print_matrix(const T &matrix) {
 
 int main() {
 	GraphFactory gf;
-	Graph g1(3, true);
-	Graph g2 = gf.c(7, { 1, 2 });
-	print_matrix(g2.get_adjacency_matrix());
+	Graph g1 = gf.qr(13);
+	print_matrix(g1.get_adjacency_matrix());
 	cout << endl;
-	print_matrix(g2.route());
+	print_matrix(g1.route());
 }

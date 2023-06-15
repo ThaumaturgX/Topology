@@ -1,5 +1,7 @@
 #include "GraphFactory.h"
 
+#include <unordered_set>
+
 Graph GraphFactory::c(size_t n, const std::vector<size_t>& distances) {
 	Graph g(n);
 
@@ -16,4 +18,35 @@ Graph GraphFactory::c(size_t n, const std::vector<size_t>& distances) {
 	}
 
 	return g;
+}
+
+Graph GraphFactory::complete(size_t n) {
+	return Graph(n, true);
+}
+
+bool is_prime_power(size_t n) {
+	if (n == 0) return false;
+	if (n == 1)	return true; // 1 is considered a prime power
+
+	for (size_t i = 2; i * i <= n; ++i) {
+		if (n % i == 0) {
+			while (n % i == 0) {
+				n /= i;
+			}
+			return n == 1;
+		}
+	}
+	return true;
+}
+
+Graph GraphFactory::qr(size_t q) {
+	// Check the condition for Paley graphs
+	if (!is_prime_power(q) || q % 4 != 1) return Graph(0);
+
+	std::unordered_set<size_t> quardratic_residues;
+	for (size_t i = 1; i < q; ++i) {
+		quardratic_residues.insert(i * i % q);
+	}
+
+	return this->c(q, std::vector<size_t>(quardratic_residues.begin(), quardratic_residues.end()));
 }
