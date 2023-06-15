@@ -52,17 +52,21 @@ Graph GraphFactory::qr(size_t q) {
 }
 
 Graph GraphFactory::torus(size_t n, size_t m) {
-	Graph g(n*m);
+	Graph g(n * m);
 
+	// iterate over every node and make connections
 	for (size_t i = 0; i < n; ++i) {
 		for (size_t j = 0; j < m; ++j) {
-			g.add_edge((i * n + j), ((i * n + j) / n) * n + ((i * n + j) % n + 1) % n);
-			g.add_edge((i * n + j), (((((i * n + j) + n) / n) % m)* n + (i * n + j) % n));
+			const size_t current_node = i * m + j;
+			g.add_edge(current_node, (j == m - 1 ? current_node - m + 1 : current_node + 1)); // connect to the right
+			g.add_edge(current_node, (i == n - 1 ? j : current_node + m));				// connect below
 		}
-	} 
-	for (size_t i = 0; i < n*m; ++i) {
+	}
+
+	// handle edge cases: m == 1 or n == 1
+	for (size_t i = 0; i < n * m; ++i) {
 		g.remove_edge(i, i);
 	}
-	
+
 	return g;
 }
