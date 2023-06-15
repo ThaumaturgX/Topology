@@ -50,3 +50,19 @@ Graph GraphFactory::qr(size_t q) {
 
 	return this->c(q, std::vector<size_t>(quardratic_residues.begin(), quardratic_residues.end()));
 }
+
+Graph GraphFactory::torus(size_t n, size_t m) {
+	Graph g(n*m);
+
+	for (size_t i = 0; i < n; ++i) {
+		for (size_t j = 0; j < m; ++j) {
+			g.add_edge((i * n + j), ((i * n + j) / n) * n + ((i * n + j) % n + 1) % n);
+			g.add_edge((i * n + j), (((((i * n + j) + n) / n) % m)* n + (i * n + j) % n));
+		}
+	} 
+	for (size_t i = 0; i < n*m; ++i) {
+		g.remove_edge(i, i);
+	}
+	
+	return g;
+}
